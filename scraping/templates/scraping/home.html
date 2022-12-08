@@ -10,13 +10,14 @@
         <div id="project">
             <h5 class="card-header"><a href="{{ list.url}}">{{ search.title }}</a></h5>
             <div class="card-body"> 
+                <h4>{{ search.company }}</h4>
                 <p class="card-text">{{ search.description }}</p>
                 <p>{{ search.city.name }} | {{ search.language.name }} | 
                 <small>{{ search.timestamp|date:'d-m-Y' }}</small></p>
             </div>
         </div>
     {% empty %}
-        <h3 class="text-center">К сожалению по Bашему запросу ничего не найдено</h3>
+        <h3 class="text-center">К сожалению по Bашему запросу ничего не найдено.</h3>    
     {% endfor %}
         
     <div class="row>">
