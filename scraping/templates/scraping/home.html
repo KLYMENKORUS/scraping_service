@@ -4,25 +4,14 @@
 {% block title %}Home{% endblock title %}
     
 {% block content %}
-<div>
-    <h1>Вакансии</h1>
-    {% for search in object_search %}
-        <div id="project">
-            <h5 class="card-header"><a href="{{ search.url }}">{{ search.title }}</a></h5>
-            <div class="card-body"> 
-                <h4>{{ search.company }}</h4>
-                <p class="card-text">{{ search.description }}</p>
-                <p>{{ search.city.name }} | {{ search.language.name }} | 
-                <small>{{ search.timestamp|date:'d-m-Y' }}</small></p>
-            </div>
+    <div class="row">
+        <div class="col">
+            <h3 class="text-center">Сервис по сбору и рассылки ваканисий IT</h3>
         </div>
-    {% empty %}
-        <h3 class="text-center">К сожалению по Bашему запросу ничего не найдено.</h3>    
-    {% endfor %}
-        
+    </div>
     <div class="row>">
-        <div class="col-md-4 my-3 mx-auto">
-            <form action="">
+        <div class="col-md-6 my-3 mx-auto" id="home">
+            <form action="{% url 'scraping:list_view' %}" method="get">
                 <div class="form-group">
                     {{ form.as_p }}
                 </div>
@@ -30,6 +19,5 @@
             </form>
         </div>
     </div>
-  </div>
 {% endblock content %}
     
