@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Home{% endblock title %}
+    
+{% block content %}
+<div>
+    <h1>Вакансии</h1>
+    {% for search in object_search %}
+        <div id="project">
+            <h5 class="card-header"><a href="{{ search.url }}">{{ search.title }}</a></h5>
+            <div class="card-body"> 
+                <h4>{{ search.company }}</h4>
+                <p class="card-text">{{ search.description }}</p>
+                <p>{{ search.city.name }} | {{ search.language.name }} | 
+                <small>{{ search.timestamp|date:'d-m-Y' }}</small></p>
+            </div>
+        </div>
+    {% empty %}
+        <h3 class="text-center">К сожалению по Bашему запросу ничего не найдено.</h3>    
+    {% endfor %}
+        
+    <div class="row>">
+        <div class="col-md-4 my-3 mx-auto">
+            <form action="" method="get">
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+                <input class="btn btn-info my-1" type="submit" value="Найти">
+            </form>
+        </div>
+    </div>
+  </div>
+{% endblock content %}
+    
