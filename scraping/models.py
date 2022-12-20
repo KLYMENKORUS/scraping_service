@@ -2,6 +2,10 @@ from django.db import models
 from .utils import from_cyrilling_to_en
 
 
+def defaults_urls():
+    return {'get_work_ua': '', 'get_dou_ua': '', 'djinni_co': ''}
+
+
 class City(models.Model):
     name = models.CharField(max_length=50, verbose_name='Название города', 
                             help_text='Не более 50 символов', unique=True)
@@ -64,3 +68,15 @@ class Error(models.Model):
     def __str__(self):
         return str(self.timestamp)
 
+
+class Url(models.Model):
+    city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name='Город')
+    language = models.ForeignKey(Language, on_delete=models.CASCADE,
+                                 verbose_name='Язык программирования')
+    url_data = models.JSONField(default=defaults_urls)
+
+    def __str__(self):
+        return f'{self.city} - {self.language}'
+
+    class Meta:
+        unique_together = ('city', 'language')
