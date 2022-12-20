@@ -5,5 +5,6 @@ from . import views
 app_name = 'scraping'
 
 urlpatterns = [
-    path('home/', views.ListHomeView.as_view(), name='home'),
+    path('list/vacancy/', views.list_view, name='list_view'),
+    path('home/', views.home, name='home'),
 ]
