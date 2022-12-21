@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}Успешная регистрация{% endblock title %}
+    
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <h3 class="text-center">Привет 👋 {{ new_user.email }}</h3>
+        </div>
+    </div>
+    <div class="row>">
+        <div class="col-md-6 my-3 mx-auto" id="home">
+            <h5>
+                <p>Вы зарегистрировались в системе JF. Теперь можете <a href="{% url 'accounts:login' %}">войти</a></p>
+            </h5>
+        </div>
+    </div>
+{% endblock content %}
