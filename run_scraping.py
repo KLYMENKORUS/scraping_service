@@ -82,6 +82,3 @@ for job in jobs:
 
 if errors:
     er = Error(data=errors).save()
-#
-# with open('file.txt', 'w', encoding='utf-8') as file:
-#     [file.write(f'{line}\n') for line in jobs]

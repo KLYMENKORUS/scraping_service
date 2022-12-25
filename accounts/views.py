@@ -34,32 +34,34 @@ def register_view(request):
         new_user = form.save(commit=False)
         new_user.set_password(form.cleaned_data['password'])
         new_user.save()
+        messages.add_message(request, messages.SUCCESS, f'Пользователь {new_user} успешно создан 😀')
         return render(request, 'accounts/register_done.html', {'new_user': new_user})
 
     return render(request, 'accounts/register.html', {'form': form})
 
 
-@login_required
+@login_required()
 def update_view(request):
     user = request.user
     if request.method == 'POST':
-        form = UserUpdateForm(request.POST)
+        form = UserUpdateForm(instance=request.user, data=request.POST)
         if form.is_valid():
             data = form.cleaned_data
             user.city = data['city']
             user.language = data['language']
             user.send_email = data['send_email']
+            user.email = data['email']
             user.save()
             messages.add_message(request, messages.INFO, f'Настройки аккаунта {user}, изменены.')
             return redirect('accounts:update')
     else:
-        form = UserUpdateForm(
-            initial={'city': user.city, 'language': user.language,
-                     'send_email': user.send_email})
-        return render(request, 'accounts/update.html', {'form': form})
+        form = UserUpdateForm(instance=request.user,
+                              initial={'city': user.city, 'language': user.language,
+                                       'send_email': user.send_email, 'email': user.email})
+    return render(request, 'accounts/update.html', {'form': form})
 
 
-@login_required
+@login_required()
 def delete_view(request):
     user = request.user
     if request.method == 'POST':

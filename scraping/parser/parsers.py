@@ -6,6 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from fake_useragent import UserAgent
 
+
 __all__ = ('get_work_ua', 'get_dou_ua', 'djinni_co')
 
 browser = UserAgent()
@@ -155,8 +156,8 @@ def djinni_co(url, city=None, language=None):
             page_count = int(soup.find('ul', class_='pagination').find_all('a', class_='page-link')[-2].text)
 
             for page in range(1, page_count + 1):
-                url = f'https://djinni.co/jobs/?location={city}&region=UKR&primary_keyword={language}&page={page}'
-                response = requests.get(url=url, headers=headers)
+                url_1 = f'{url}&page={page}'
+                response = requests.get(url=url_1, headers=headers)
                 soup = BeautifulSoup(response.text, 'lxml')
                 li_lst = soup.find('ul', class_='list-jobs').find_all('li', class_='list-jobs__item')
 

@@ -47,7 +47,7 @@ class UserRegistrationForm(forms.ModelForm):
         return data['password2']
 
 
-class UserUpdateForm(forms.Form):
+class UserUpdateForm(forms.ModelForm):
     city = forms.ModelChoiceField(
         queryset=City.objects.all(), to_field_name='slug', required=True,
         widget=forms.Select(attrs={'class': 'form-control'}), label='Город'
@@ -56,10 +56,10 @@ class UserUpdateForm(forms.Form):
         queryset=Language.objects.all(), to_field_name='slug', required=True,
         widget=forms.Select(attrs={'class': 'form-control'}), label='Специальность'
     )
+    email = forms.EmailField(label='Смена email')
     send_email = forms.BooleanField(required=False, widget=forms.CheckboxInput,
                                     label='Получать рассылку')
 
     class Meta:
         model = User
-        fields = ('city', 'language', 'send_email')
-
+        fields = ('city', 'language',  'email', 'send_email',)

@@ -66,7 +66,7 @@ class Error(models.Model):
     data = models.JSONField()
 
     def __str__(self):
-        return str(self.timestamp)
+        return f'Error - {str(self.timestamp)}'
 
 
 class Url(models.Model):
