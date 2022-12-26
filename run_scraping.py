@@ -1,5 +1,6 @@
 import asyncio
 import os, sys
+import datetime as dt
 
 from django.contrib.auth import get_user_model
 
@@ -81,4 +82,13 @@ for job in jobs:
         pass
 
 if errors:
-    er = Error(data=errors).save()
+    qs = Error.objects.filter(timestamp=dt.date.today())
+    if qs.exists():
+        err = qs.first()
+        err.data.update({'errors': errors})
+        err.save()
+    else:
+        er = Error(data=f'errors: {errors}').save()
+
+ten_days_ago = dt.date.today() - dt.timedelta(10)
+Vacancy.objects.filter(timestamp__lte=ten_days_ago).delete()

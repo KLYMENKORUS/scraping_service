@@ -61,12 +61,22 @@ content = ''
 
 if qs.exists():
     error = qs.first()
-    data = error.data
+    data = error.data.get('errors', [])
+    content += '<hr>'
+    content += f'<h2>Ошибки скрапинга за {today}</h2>'
     for i in data:
-        content = f'<h5><a href="{i["url"]}">Error: {i["title"]}</a></h5>'
+        content += f'<h5><a href="{i["url"]}">Error: {i["title"]}</a></h5>'
+    subject += f'Ошибки скрапинга за {today}'
+    text_content += f'Ошибки скрапинга'
 
-    subject = f'Ошибки скрапинга за {today}'
-    text_content = f'Ошибки скрапинга за {today}'
+    data = error.data.get('user_data')
+    if data:
+        content += '<hr>'
+        content += '<h2>Пожелания пользователей</h2>'
+        for i in data:
+            content += f'<h5>Город: {i["city"]},  Специальность: {i["language"]}, email: {i["email"]}</h5>'
+        subject += f'Пожелания пользователей {today}'
+        text_content += f'Пожелания пользователей'
 
 
 qs = Url.objects.all().values('city', 'language')
@@ -74,10 +84,13 @@ urls_dict = {(i['city'], i['language']): True for i in qs}
 urls_err = ''
 for keys in user_dict.keys():
     if keys not in urls_dict:
-        urls_err += f'<p>Для города: {keys[0]} и  ЯП: {keys[1]} отсутствуют URL</p>'
+        if keys[0] and keys[1]:
+            urls_err += f'<p>Для города: {keys[0]} и  ЯП: {keys[1]} отсутствуют URL</p>'
 
 if urls_err:
-    subject += ' Отсутствующие Url'
+    subject += 'Отсутствующие URl'
+    content += '<hr>'
+    content += '<h2>Отсутствующие URl</h2>'
     content += urls_err
 
 if subject:

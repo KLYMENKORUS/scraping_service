@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load bootstrap4%}
+{% load bootstrap4 %}
 
 
 {% block title %}Настройки{% endblock title %}
@@ -15,14 +15,27 @@
             <form action="" method="post">
                 {% csrf_token %}
                 {% bootstrap_form form %}
-                <button class="btn btn-info my-1 col-md-4" type="submit">Сохранить</button>
+                <button class="btn btn-info my-1 btn-lg btn-block" type="submit">Сохранить</button>
             </form>
             <div>
                 <form action="{% url 'accounts:delete' %}" method="post">
                     {% csrf_token %}
-                    <button class="btn btn-danger mb-2 mt-2" type="submit">Удалить пользователя</button>
+                    <button class="btn btn-danger mt-2 btn-lg" type="submit">Удалить пользователя</button>
+                    <a class="text-info float-right mt-3" href="{% url 'accounts:password_change' %}">Сменить пароль?</a>
                 </form>
+                <hr>
+                <p>Если Вы не нашли подходящий набор Город, Специальность, Вы можете заполнить форму ниже,
+                    с Вашими пожеланиями. После того, как необходимые данные будут добавлены, Вы получите письмо на
+                    указанный email.</p>
+                <form action="{% url 'accounts:contact' %}" method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form contact_form %}
+                    <button class="btn btn-info mb-3 btn-lg" type="submit">Отправить</button>
+                </form>
+
             </div>
         </div>
     </div>
+
+
 {% endblock content %}
