@@ -1,3 +1,11 @@
+@font-face {
+    font-family: Wendy One;
+    src: url(../fonts/WendyOne-Regular.ttf);
+}
+
+#fonts {
+    font-family: Wendy One;
+}
 #project {
     list-style-type: none;
     border: 1px solid #fff;

@@ -1,25 +1,27 @@
 {% load bootstrap4 %}
 {% load static %}
-
+{% url 'accounts:login' as login_url %}
+{% url 'accounts:update' as update_url %}
+{% url 'accounts:register' as register_url %}
 
 
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
-    {% bootstrap_css %}
-    {% bootstrap_javascript jquery='slim' %}
-
-    <title>{% block title %}{% endblock title %}</title>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel="icon" href="{% static 'images/favicon.ico' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+      {% bootstrap_css %}
+      {% bootstrap_javascript jquery='slim' %}
+      <title>{% block title %}{% endblock title %}</title>
   </head>
   <body>
-  <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-info">
-      <a class="navbar-brand" href="{% url 'scraping:home' %}">JF</a>
+  <div class="container" id="fonts">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="{% url 'scraping:home' %}" id="fonts">
+          <img class="mr-auto" src="{% static 'images/favicon-32x32.png' %}" alt="img">Job Finder</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -29,14 +31,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'accounts:update' %}">Настройки</a>
+                <li class="nav-item {% if request.path == update_url %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'accounts:update' %}">Профиль</a>
                 </li>
             {% else %}
-                <li class="nav-item">
+                <li class="nav-item {% if request.path == login_url %} active {% endif %}">
                     <a class="nav-link" href="{% url 'accounts:login' %}">Войти</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {% if request.path == register_url %} active {% endif %}">
                     <a class="nav-link" href="{% url 'accounts:register' %}">Регистрация</a>
                 </li>
             {% endif %}
@@ -44,7 +46,7 @@
       </div>
     </nav>
   </div>
-    <div class="container my-3">
+    <div class="container my-3" id="fonts">
         <div class="col-md-6 my-3 mx-auto">{% bootstrap_messages %}</div>
         {% block content %}
         {% endblock content %}
