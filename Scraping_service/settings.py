@@ -19,9 +19,9 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['scraping-serv.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -141,3 +141,7 @@ EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 
 # Settings Heroku
 django_heroku.settings(locals())
+if os.environ.get('DEBUG') == 'TRUE':
+    DEBUG = True
+elif os.environ.get('DEBUG') == 'FALSE':
+    DEBUG = False
