@@ -54,7 +54,6 @@ coverage.xml
 # Django stuff:
 *.log
 local_settings.py
-db.sqlite3
 
 # Flask stuff:
 instance/
@@ -108,3 +107,5 @@ static_collected
 
 # Exclude machine-specific vs code settings
 .vscode/settings.json
+
+*.sqlite3
