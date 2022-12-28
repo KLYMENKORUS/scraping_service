@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
 from fake_useragent import UserAgent
 
 
@@ -80,9 +81,13 @@ def get_work_ua(url, city=None, language=None):
 def get_dou_ua(url, city=None, language=None):
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
+    options.add_argument("disable-dev-shm-usage")
+    # driver = webdriver.Chrome(
+    #     executable_path='chromedriver.exe',
+    #     options=options
+    # )
     driver = webdriver.Chrome(
-        executable_path='chromedriver.exe',
-        options=options
+        chrome_options=options, executable_path=ChromeDriverManager().install()
     )
     jobs = []
     errors = []
