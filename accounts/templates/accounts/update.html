@@ -20,7 +20,7 @@
             <div>
                 <form action="{% url 'accounts:delete' %}" method="post">
                     {% csrf_token %}
-                    <button class="btn btn-danger mt-2 btn-lg" type="submit">Удалить пользователя</button>
+                    <button class="btn btn-danger mt-3" type="submit">Удалить пользователя</button>
                     <a class="text-info float-right mt-3" href="{% url 'accounts:password_change' %}">Сменить пароль?</a>
                 </form>
                 <hr>
