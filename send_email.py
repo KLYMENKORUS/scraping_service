@@ -13,7 +13,7 @@ from Scraping_service.settings import EMAIL_HOST_USER
 
 User = get_user_model()
 today = datetime.datetime.today()
-subject = 'JF'
+subject = f'JF Рассылка вакансий за {today.strftime("%d-%m-%Y")}'
 text_content = f'Рассылка вакансий за {today.strftime("%d-%m-%Y")}'
 from_email = EMAIL_HOST_USER
 empty = '<h2>К сожалению на сегодня по вашим параметрам данных нет :(</h2>'
