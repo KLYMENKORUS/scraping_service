@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 import django_heroku
 from pathlib import Path
 from dotenv import load_dotenv
@@ -97,6 +98,9 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+db = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db)
 
 
 # Password validation
