@@ -94,8 +94,8 @@ def contact(request):
                 err.data['user_data'] = data
                 err.save()
             else:
-                data = [{'city': city, 'language': language, 'email': email, }]
-                Error(data=f"user_data: {data}").save()
+                data = {'user_data': [{'city': city, 'language': language, 'email': email, }]}
+                Error(data=data).save()
 
             messages.add_message(request, messages.INFO, 'Данные отправлены администрации сайта 🙄')
             return redirect('accounts:update')
