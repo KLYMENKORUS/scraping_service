@@ -13,13 +13,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
+
 EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 
+DB_NAME = os.environ.get('DB_NAME')
+DB_PASSWORD = os.environ.get('DB_PASSWORD')
+DB_HOST = os.environ.get('DB_HOST')
+DB_USER = os.environ.get('DB_USER')
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['scraping-serv.herokuapp.com', '127.0.0.1']
 
@@ -78,9 +84,17 @@ WSGI_APPLICATION = 'Scraping_service.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': '5432',
     }
 }
 
