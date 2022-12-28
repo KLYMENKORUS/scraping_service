@@ -14,7 +14,7 @@ from Scraping_service.settings import EMAIL_HOST_USER
 User = get_user_model()
 today = datetime.datetime.today()
 subject = 'JF'
-text_content = f'Рассылка вакансий за {today}'
+text_content = f'Рассылка вакансий за {today.strftime("%d-%m-%Y")}'
 from_email = EMAIL_HOST_USER
 empty = '<h2>К сожалению на сегодня по вашим параметрам данных нет :(</h2>'
 
@@ -63,20 +63,20 @@ if qs.exists():
     error = qs.first()
     data = error.data.get('errors', [])
     content += '<hr>'
-    content += f'<h2>Ошибки скрапинга за {today}</h2>'
+    content += f'<h2>Ошибки скрапинга за {today.strftime("%d-%m-%Y")}</h2>'
     for i in data:
         content += f'<h5><a href="{i["url"]}">Error: {i["title"]}</a></h5>'
-    subject += f'Ошибки скрапинга за {today}'
+    subject += f'Ошибки скрапинга за {today.strftime("%d-%m-%Y")}'
     text_content += f'Ошибки скрапинга'
 
     data = error.data.get('user_data')
     if data:
         content += '<hr>'
-        content += '<h2>Пожелания пользователей</h2>'
+        content += f'<h2>Пожелания пользователей {today.strftime("%d-%m-%Y")}</h2>'
         for i in data:
             content += f'<h5>Город: {i["city"]},  Специальность: {i["language"]}, email: {i["email"]}</h5>'
-        subject += f'Пожелания пользователей {today}'
-        text_content += f'Пожелания пользователей'
+        subject += f'Пожелания пользователей {today.strftime("%d-%m-%Y")}'
+        text_content += 'Пожелания пользователей'
 
 
 qs = Url.objects.all().values('city', 'language')
