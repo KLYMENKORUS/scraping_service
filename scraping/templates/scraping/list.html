@@ -10,10 +10,9 @@
             <h1 class="text-center">Результаты по вашему запросу</h1>
             {% for list in object_list %}
                 <div id="project">
-                    <h5 class="card-header"><a href="{{ list.url }}">{{ list.title }}</a></h5>
+                    <h5 class="card-header"><a href="{% url 'scraping:detail' list.pk %}">{{ list.title }}</a></h5>
                     <div class="card-body">
                         <h4>{{ list.company }}</h4>
-                        <p class="card-text">{{ list.description }}</p>
                         <p>{{ list.city.name }} | {{ list.language.name }} |
                             <small>{{ list.timestamp|date:'d-m-Y' }}</small></p>
                     </div>
@@ -24,7 +23,7 @@
                 <div class="col">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
-                            {% if object_list.has_previous %}
+                            {% if page_obj.has_previous %}
                                 <li class="page-item">
                                   <a class="page-link" href="?city={{ city }}&language={{ language }}&page=1" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
@@ -32,14 +31,14 @@
                                 </li>
                             {% endif %}
 
-                            {% for page in object_list.paginator.page_range %}
+                            {% for page in page_obj.paginator.page_range %}
                                 <li class="page-item {% if page == object_list.number %} active {% endif %}">
                                     <a class="page-link" href="?city={{ city }}&language={{ language }}&page={{ page }}">{{ page }}</a></li>
                             {% endfor %}
 
-                            {% if object_list.has_next %}
+                            {% if page_obj.has_next %}
                                 <li class="page-item">
-                                  <a class="page-link" href="?city={{ city }}&language={{ language }}&page={{ object_list.next_page_number }}" aria-label="Next">
+                                  <a class="page-link" href="?city={{ city }}&language={{ language }}&page={{ page_obj.next_page_number }}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                   </a>
                                 </li>

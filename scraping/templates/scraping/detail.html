@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+
+{% block title %}{{ vacancy_detail.title }}{% endblock title %}
+    
+{% block content %}
+    <div id="project">
+        <h5 class="card-header"><a href="{{ vacancy_detail.url }}">{{ vacancy_detail.title }}</a></h5>
+        <div class="card-body">
+            <h4>{{ vacancy_detail.company }}</h4>
+            <p class="card-text">{{ vacancy_detail.description }}</p>
+            <p>{{ vacancy_detail.city.name }} | {{ vacancy_detail.language.name }} |
+                <small>{{ vacancy_detail.timestamp|date:'d-m-Y' }}</small></p>
+        </div>
+    </div>
+{% endblock content %}
+    
